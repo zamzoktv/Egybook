@@ -1,103 +1,2012 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#050b1b">
-  <meta name="description" content="EgyBook — تواصل، شارك، اكتشف أكثر">
-  <title>EgyBook | تواصل، شارك، اكتشف أكثر</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="theme-color" content="#030b1b">
+  <meta name="description" content="EgyBook - تواصل، شارك، واكتشف أكثر">
+
+  <title>EgyBook | إيجي بوك</title>
+
+  <style>
+    /* ======================================
+       EgyBook — Main Homepage
+       Dark Navy + Neon Blue Identity
+    ====================================== */
+
+    :root {
+      --bg: #030918;
+      --surface: #07152b;
+      --surface-light: #0c2040;
+      --blue: #087bff;
+      --cyan: #00d9ff;
+      --purple: #a855ff;
+      --pink: #ff42d0;
+      --white: #f5f8ff;
+      --muted: #9aafd0;
+      --border: rgba(48, 132, 255, 0.30);
+      --glow: 0 0 18px rgba(0, 123, 255, 0.30);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--bg);
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(
+          ellipse at top center,
+          rgba(0, 78, 180, 0.18),
+          transparent 48%
+        ),
+        var(--bg);
+      color: var(--white);
+      font-family: Arial, Tahoma, sans-serif;
+      padding-bottom: 95px;
+      overflow-x: hidden;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 3px;
+    }
+
+    button:disabled {
+      opacity: .5;
+      cursor: not-allowed;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    /* =============== HEADER =============== */
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 15px 16px;
+      background: rgba(3, 9, 24, 0.96);
+      border-bottom: 1px solid rgba(0, 130, 255, .18);
+      backdrop-filter: blur(16px);
+    }
+
+    .logo {
+      direction: ltr;
+      white-space: nowrap;
+      font-size: clamp(25px, 6vw, 34px);
+      font-weight: 900;
+      letter-spacing: -1.8px;
+      color: #fff;
+      text-shadow: 0 0 15px rgba(0, 123, 255, .18);
+    }
+
+    .logo span {
+      color: var(--cyan);
+      text-shadow: 0 0 14px rgba(0, 217, 255, .5);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .icon-button {
+      width: 43px;
+      height: 43px;
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      position: relative;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: linear-gradient(145deg, #10274a, #071226);
+      color: var(--white);
+      font-size: 21px;
+      transition: .2s;
+    }
+
+    .icon-button:active {
+      transform: scale(.94);
+      box-shadow: var(--glow);
+    }
+
+    .icon-button.message {
+      color: #e76cff;
+      border-color: rgba(168, 85, 255, .6);
+      box-shadow: 0 0 12px rgba(168, 85, 255, .15);
+    }
+
+    .badge {
+      position: absolute;
+      top: -4px;
+      right: -3px;
+      min-width: 19px;
+      height: 19px;
+      padding: 0 5px;
+      display: grid;
+      place-items: center;
+      border-radius: 20px;
+      background: #ff315e;
+      color: white;
+      font-size: 11px;
+      font-weight: bold;
+      border: 1px solid #061026;
+    }
+
+    .avatar {
+      width: 46px;
+      height: 46px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      position: relative;
+      color: white;
+      font-weight: bold;
+      background: linear-gradient(145deg, #0b83ff, #7c3aed, #fa43b8);
+      border: 2px solid var(--cyan);
+      box-shadow: 0 0 12px rgba(0, 217, 255, .3);
+      overflow: hidden;
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* =============== MAIN LAYOUT =============== */
+
+    .container {
+      width: 100%;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 14px 13px 25px;
+    }
+
+    /* =============== TOP NAVIGATION =============== */
+
+    .top-navigation {
+      display: flex;
+      align-items: stretch;
+      gap: 4px;
+      padding: 10px 0 15px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      border-bottom: 1px solid rgba(57, 129, 255, .18);
+    }
+
+    .top-navigation::-webkit-scrollbar {
+      display: none;
+    }
+
+    .top-nav-item {
+      flex: 1 0 75px;
+      min-height: 66px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      padding: 8px 5px;
+      border: 1px solid transparent;
+      border-radius: 22px;
+      background: transparent;
+      color: var(--muted);
+      font-size: 12px;
+      transition: .2s;
+    }
+
+    .top-nav-item .nav-icon {
+      font-size: 23px;
+    }
+
+    .top-nav-item.active {
+      color: white;
+      background: linear-gradient(
+        135deg,
+        rgba(0, 100, 255, .32),
+        rgba(0, 217, 255, .08)
+      );
+      border-color: rgba(0, 160, 255, .75);
+      box-shadow: 0 0 17px rgba(0, 123, 255, .24);
+    }
+
+    .top-nav-item.active .nav-icon {
+      color: var(--cyan);
+      text-shadow: 0 0 12px var(--blue);
+    }
+
+    /* =============== CREATE POST =============== */
+
+    .create-post {
+      margin-top: 20px;
+      padding: 15px;
+      border: 1px solid var(--border);
+      border-radius: 25px;
+      background: linear-gradient(
+        145deg,
+        rgba(11, 29, 56, .97),
+        rgba(4, 14, 31, .97)
+      );
+      box-shadow: 0 8px 25px rgba(0, 0, 0, .12);
+    }
+
+    .composer-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .composer-input {
+      width: 100%;
+      min-width: 0;
+      height: 54px;
+      padding: 0 18px;
+      border-radius: 35px;
+      border: 1px solid rgba(54, 130, 255, .45);
+      background: #0b1d39;
+      color: white;
+      outline: none;
+      font-size: 14px;
+    }
+
+    .composer-input::placeholder {
+      color: #9aafd0;
+    }
+
+    .composer-tools {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 5px;
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(48, 132, 255, .2);
+    }
+
+    .composer-tool {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      padding: 8px 2px;
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      font-size: 12px;
+      border-radius: 12px;
+    }
+
+    .composer-tool .tool-icon {
+      font-size: 18px;
+    }
+
+    .composer-tool.photo {
+      color: #30e5ff;
+    }
+
+    .composer-tool.video {
+      color: #d08aff;
+    }
+
+    .composer-tool.location {
+      color: #67a8ff;
+    }
+
+    .composer-tool.music {
+      color: #ff6bcf;
+    }
+
+    .composer-tool:active {
+      background: rgba(0, 123, 255, .15);
+    }
+
+    /* =============== STORIES =============== */
+
+    .section {
+      margin-top: 26px;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 15px;
+    }
+
+    .section-heading h2 {
+      font-size: 21px;
+      font-weight: 800;
+    }
+
+    .section-link {
+      border: 0;
+      background: transparent;
+      color: var(--cyan);
+      font-size: 13px;
+    }
+
+    .stories {
+      display: flex;
+      gap: 11px;
+      overflow-x: auto;
+      padding: 3px 0 10px;
+      scrollbar-width: none;
+    }
+
+    .stories::-webkit-scrollbar {
+      display: none;
+    }
+
+    .story {
+      width: 93px;
+      min-width: 93px;
+      padding: 10px 5px;
+      border-radius: 20px;
+      border: 1px solid rgba(36, 114, 255, .17);
+      background: linear-gradient(145deg, #0b1b36, #061126);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 9px;
+      color: white;
+      transition: .2s;
+    }
+
+    .story:active {
+      transform: scale(.96);
+    }
+
+    .story-ring {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      padding: 4px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(
+        135deg,
+        var(--cyan),
+        #1765ff,
+        var(--purple)
+      );
+      box-shadow: 0 0 12px rgba(0, 123, 255, .2);
+    }
+
+    .story-ring .avatar {
+      width: 100%;
+      height: 100%;
+      border: 2px solid #08152c;
+      box-shadow: none;
+      background: linear-gradient(145deg, #245da0, #15274c);
+      font-size: 27px;
+    }
+
+    .story-name {
+      font-size: 12px;
+      white-space: nowrap;
+      max-width: 85px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .story-add .story-ring {
+      background: linear-gradient(135deg, #00d9ff, #075cff);
+    }
+
+    .story-add .avatar {
+      font-size: 38px;
+      background: #06132d;
+      color: var(--cyan);
+    }
+
+    /* =============== POSTS =============== */
+
+    .feed-heading {
+      margin-top: 28px;
+    }
+
+    .sort-button {
+      color: var(--cyan);
+      background: transparent;
+      border: 0;
+      font-size: 12px;
+    }
+
+    .post {
+      margin-top: 17px;
+      border: 1px solid rgba(47, 126, 255, .25);
+      border-radius: 24px;
+      overflow: hidden;
+      background: linear-gradient(
+        145deg,
+        #081831,
+        #041023
+      );
+      box-shadow: 0 8px 25px rgba(0, 0, 0, .12);
+    }
+
+    .post-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 15px 13px 8px;
+    }
+
+    .post-author {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .author-name {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 5px;
+      font-size: 14px;
+      font-weight: 800;
+      direction: ltr;
+      justify-content: flex-end;
+      width: fit-content;
+      max-width: 100%;
+    }
+
+    .verified {
+      color: #fff;
+      background: #0788ff;
+      border-radius: 50%;
+      width: 17px;
+      height: 17px;
+      display: inline-grid;
+      place-items: center;
+      font-size: 11px;
+    }
+
+    .post-meta {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.7;
+    }
+
+    .more-button {
+      width: 35px;
+      height: 35px;
+      border: 0;
+      background: transparent;
+      color: #9eb8df;
+      font-size: 23px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .more-button:active {
+      background: rgba(0, 123, 255, .15);
+    }
+
+    .post-text {
+      padding: 9px 16px 15px;
+      font-size: 15px;
+      line-height: 1.9;
+      overflow-wrap: anywhere;
+    }
+
+    .post-image {
+      width: 100%;
+      aspect-ratio: 1.15 / 1;
+      object-fit: cover;
+      background: #10213b;
+    }
+
+    .post-image-placeholder {
+      width: 100%;
+      aspect-ratio: 1.15 / 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 10px;
+      color: var(--muted);
+      background:
+        radial-gradient(
+          circle at 50% 40%,
+          rgba(0, 133, 255, .3),
+          transparent 55%
+        ),
+        linear-gradient(135deg, #10294c, #071124);
+      font-size: 42px;
+    }
+
+    .post-image-placeholder span {
+      font-size: 13px;
+    }
+
+    .post-stats {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 7px;
+      padding: 12px 12px;
+      color: var(--muted);
+      font-size: 12px;
+      border-bottom: 1px solid rgba(47, 126, 255, .16);
+    }
+
+    .reaction-summary {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      direction: ltr;
+    }
+
+    .reaction-icons {
+      display: flex;
+      align-items: center;
+    }
+
+    .reaction-icons span {
+      width: 25px;
+      height: 25px;
+      display: grid;
+      place-items: center;
+      margin-left: -4px;
+      border-radius: 50%;
+      background: #10294b;
+      border: 2px solid #07152b;
+      font-size: 13px;
+    }
+
+    .post-actions {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      padding: 5px 5px 8px;
+    }
+
+    .post-action {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      min-height: 43px;
+      border: 0;
+      border-radius: 13px;
+      background: transparent;
+      color: #b2c4e2;
+      font-size: 12px;
+      transition: .2s;
+    }
+
+    .post-action .action-icon {
+      font-size: 19px;
+    }
+
+    .post-action:active {
+      background: rgba(0, 123, 255, .12);
+    }
+
+    .post-action.liked {
+      color: var(--cyan);
+    }
+
+    .post-action.saved {
+      color: #c78bff;
+    }
+
+    /* =============== BOTTOM NAVIGATION =============== */
+
+    .bottom-navigation {
+      position: fixed;
+      z-index: 200;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      min-height: 80px;
+      padding: 8px 8px calc(8px + env(safe-area-inset-bottom));
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      gap: 3px;
+      border: 1px solid rgba(0, 123, 255, .38);
+      border-bottom: 0;
+      border-radius: 25px 25px 0 0;
+      background: rgba(4, 13, 31, .97);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 -8px 28px rgba(0, 0, 0, .3);
+    }
+
+    .bottom-item {
+      flex: 1;
+      min-width: 0;
+      height: 62px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      position: relative;
+      border: 1px solid transparent;
+      border-radius: 20px;
+      background: transparent;
+      color: #9eb0d0;
+      font-size: 11px;
+      transition: .2s;
+    }
+
+    .bottom-item .nav-icon {
+      font-size: 23px;
+      line-height: 1.2;
+    }
+
+    .bottom-item.active {
+      color: var(--cyan);
+      background: linear-gradient(
+        135deg,
+        rgba(0, 95, 255, .30),
+        rgba(0, 217, 255, .06)
+      );
+      border-color: rgba(0, 145, 255, .55);
+      box-shadow: 0 0 17px rgba(0, 123, 255, .17);
+    }
+
+    .bottom-item.create-button {
+      flex: 0 0 68px;
+      width: 68px;
+      height: 68px;
+      margin-top: -22px;
+      border-radius: 24px;
+      border: 1px solid #49e8ff;
+      background: linear-gradient(135deg, #00d9ff, #087bff 65%, #7146ff);
+      color: white;
+      box-shadow:
+        0 0 22px rgba(0, 123, 255, .48),
+        inset 0 0 12px rgba(255, 255, 255, .16);
+    }
+
+    .bottom-item.create-button .nav-icon {
+      font-size: 43px;
+      font-weight: 300;
+    }
+
+    /* =============== MODALS =============== */
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      background: rgba(0, 4, 14, .78);
+      backdrop-filter: blur(9px);
+    }
+
+    .modal.open {
+      display: flex;
+    }
+
+    .modal-box {
+      width: 100%;
+      max-width: 440px;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 22px;
+      border-radius: 25px;
+      border: 1px solid rgba(0, 181, 255, .5);
+      background: linear-gradient(145deg, #0c2040, #040c1c);
+      box-shadow: 0 0 35px rgba(0, 123, 255, .18);
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .modal-header h2 {
+      font-size: 20px;
+    }
+
+    .close-modal {
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      background: #0b1b36;
+      color: white;
+      font-size: 21px;
+    }
+
+    .modal-textarea {
+      width: 100%;
+      min-height: 130px;
+      resize: vertical;
+      padding: 14px;
+      color: white;
+      background: #07152b;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      outline: none;
+    }
+
+    .modal-input {
+      width: 100%;
+      padding: 13px;
+      margin-top: 12px;
+      color: white;
+      background: #07152b;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      outline: none;
+    }
+
+    .primary-button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 15px;
+      border: 1px solid #39dcff;
+      border-radius: 15px;
+      background: linear-gradient(110deg, #087bff, #4a49ff);
+      color: white;
+      font-weight: bold;
+      box-shadow: var(--glow);
+    }
+
+    .secondary-button {
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #0b1b36;
+      color: white;
+    }
+
+    .modal-hint {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    /* =============== TOAST =============== */
+
+    .toast {
+      position: fixed;
+      z-index: 900;
+      bottom: 100px;
+      left: 50%;
+      width: max-content;
+      max-width: calc(100% - 30px);
+      padding: 13px 18px;
+      border: 1px solid rgba(0, 217, 255, .5);
+      border-radius: 16px;
+      background: #0b2040;
+      color: white;
+      box-shadow: 0 0 20px rgba(0, 123, 255, .25);
+      font-size: 13px;
+      text-align: center;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, 15px);
+      transition: .25s;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    .empty-message {
+      padding: 30px 15px;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.9;
+    }
+
+    /* =============== RESPONSIVE =============== */
+
+    @media (min-width: 600px) {
+      .container {
+        padding-top: 22px;
+      }
+
+      .topbar {
+        padding-right: max(20px, calc((100% - 730px) / 2));
+        padding-left: max(20px, calc((100% - 730px) / 2));
+      }
+
+      .post-image {
+        aspect-ratio: 1.35 / 1;
+      }
+
+      .story {
+        width: 100px;
+        min-width: 100px;
+      }
+    }
+
+    @media (max-width: 370px) {
+      .topbar {
+        padding: 12px 10px;
+        gap: 7px;
+      }
+
+      .logo {
+        font-size: 25px;
+      }
+
+      .header-actions {
+        gap: 5px;
+      }
+
+      .icon-button {
+        width: 37px;
+        height: 37px;
+        font-size: 18px;
+      }
+
+      .header-actions .avatar {
+        width: 38px;
+        height: 38px;
+      }
+
+      .container {
+        padding-right: 9px;
+        padding-left: 9px;
+      }
+
+      .composer-tool {
+        font-size: 10px;
+      }
+
+      .story {
+        width: 83px;
+        min-width: 83px;
+      }
+
+      .story-ring {
+        width: 67px;
+        height: 67px;
+      }
+
+      .post-action {
+        font-size: 10px;
+      }
+
+      .bottom-navigation {
+        padding-right: 4px;
+        padding-left: 4px;
+      }
+
+      .bottom-item {
+        font-size: 10px;
+      }
+
+      .bottom-item.create-button {
+        flex-basis: 59px;
+        width: 59px;
+        height: 62px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+      }
+    }
+  </style>
 </head>
+
 <body>
-  <div class="app-shell">
-    <header class="topbar">
-      <a class="brand" href="#" aria-label="EgyBook الرئيسية"><span class="brand-egy">Egy</span><span class="brand-book">Book</span><i class="brand-glow"></i></a>
-      <div class="top-actions">
-        <button class="icon-btn" aria-label="بحث" title="بحث">⌕</button>
-        <button class="icon-btn message-icon" aria-label="الرسائل" title="الرسائل" id="messagesBtn"><span class="chat-glyph">···</span><b class="badge">3</b></button>
-        <button class="icon-btn" aria-label="الإشعارات" title="الإشعارات">♧</button>
-        <button class="avatar avatar-small" aria-label="حسابي">ح</button>
+
+  <!-- HEADER -->
+  <header class="topbar">
+
+    <div class="header-actions">
+
+      <button
+        class="icon-button"
+        aria-label="البحث"
+        data-action="search"
+      >⌕</button>
+
+      <button
+        class="icon-button message"
+        aria-label="الرسائل"
+        data-action="messages"
+      >
+        ▢
+        <span class="badge" id="messageBadge">3</span>
+      </button>
+
+      <button
+        class="icon-button"
+        aria-label="الإشعارات"
+        data-action="notifications"
+      >♧</button>
+
+      <button
+        class="avatar"
+        aria-label="حسابي"
+        data-action="profile"
+      >ح</button>
+
+    </div>
+
+    <a class="logo" href="#home" aria-label="EgyBook الرئيسية">
+      Egy<span>Book</span>
+    </a>
+
+  </header>
+
+
+  <main class="container" id="home">
+
+    <!-- TOP NAVIGATION -->
+    <nav class="top-navigation" aria-label="الأقسام الرئيسية">
+
+      <button class="top-nav-item active" data-page="home">
+        <span class="nav-icon">⌂</span>
+        <span>الرئيسية</span>
+      </button>
+
+      <button class="top-nav-item" data-page="friends">
+        <span class="nav-icon">♧</span>
+        <span>الأصدقاء</span>
+      </button>
+
+      <button class="top-nav-item" data-page="discover">
+        <span class="nav-icon">◎</span>
+        <span>اكتشف</span>
+      </button>
+
+      <button class="top-nav-item" data-page="reels">
+        <span class="nav-icon">▣</span>
+        <span>الريلز</span>
+      </button>
+
+      <button class="top-nav-item" data-page="saved">
+        <span class="nav-icon">♧</span>
+        <span>المحفوظة</span>
+      </button>
+
+    </nav>
+
+
+    <!-- CREATE POST -->
+    <section class="create-post" aria-label="إنشاء منشور">
+
+      <div class="composer-row">
+
+        <button class="avatar" data-action="profile" aria-label="حسابي">
+          ح
+        </button>
+
+        <input
+          class="composer-input"
+          id="quickPostInput"
+          type="text"
+          placeholder="شارك ما يدور في ذهنك..."
+          readonly
+          aria-label="إنشاء منشور جديد"
+          data-action="create-post"
+        >
+
       </div>
-    </header>
 
-    <nav class="section-tabs" aria-label="أقسام التطبيق">
-      <button class="tab active" data-tab="الرئيسية">⌂ <span>الرئيسية</span></button>
-      <button class="tab" data-tab="الأصدقاء">♧ <span>الأصدقاء</span></button>
-      <button class="tab" data-tab="اكتشف">✧ <span>اكتشف</span></button>
-      <button class="tab" data-tab="الريلز">▷ <span>الريلز</span></button>
-      <button class="tab" data-tab="المحفوظات">▣ <span>المحفوظات</span></button>
-    </nav>
+      <div class="composer-tools">
 
-    <main>
-      <section class="composer panel">
-        <div class="composer-top">
-          <div class="avatar">ح</div>
-          <button class="composer-input" id="openComposer">بتفكر في إيه؟ شارك أصحابك...</button>
-        </div>
-        <div class="composer-tools">
-          <button data-compose="صورة">▧ <span>صورة</span></button>
-          <button data-compose="فيديو">▷ <span>فيديو</span></button>
-          <button data-compose="موقع">⌖ <span>موقع</span></button>
-          <button data-compose="مزاج">♫ <span>مزاج</span></button>
-        </div>
-      </section>
+        <button class="composer-tool photo" data-action="photo">
+          <span class="tool-icon">▧</span>
+          <span>صورة</span>
+        </button>
 
-      <section class="stories-section">
-        <div class="section-heading"><h2>القصص</h2><button class="text-btn">عرض الكل ←</button></div>
-        <div class="stories-row">
-          <button class="story add-story"><span class="story-ring plus">＋</span><span>قصتك</span></button>
-          <button class="story"><span class="story-ring story-egypt">𓂀</span><span>القاهرة</span></button>
-          <button class="story"><span class="story-ring story-purple">ن</span><span>Nour</span></button>
-          <button class="story"><span class="story-ring story-cyan">ع</span><span>Ahmed</span></button>
-          <button class="story"><span class="story-ring story-pink">س</span><span>Salma</span></button>
-          <button class="story"><span class="story-ring story-blue">م</span><span>مروان</span></button>
-        </div>
-      </section>
+        <button class="composer-tool video" data-action="video">
+          <span class="tool-icon">▷</span>
+          <span>فيديو</span>
+        </button>
 
-      <section class="feed-section">
-        <div class="section-heading"><h2>آخر المنشورات</h2><button class="text-btn" id="sortBtn">الأحدث ⌄</button></div>
-        <article class="post panel">
+        <button class="composer-tool location" data-action="location">
+          <span class="tool-icon">⌖</span>
+          <span>موقع</span>
+        </button>
+
+        <button class="composer-tool music" data-action="music">
+          <span class="tool-icon">♫</span>
+          <span>موسيقى</span>
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- STORIES -->
+    <section class="section" id="storiesSection">
+
+      <div class="section-heading">
+
+        <h2>القصص</h2>
+
+        <button class="section-link" data-action="all-stories">
+          عرض الكل ←
+        </button>
+
+      </div>
+
+      <div class="stories" id="storiesList">
+
+        <button class="story story-add" data-action="add-story">
+          <div class="story-ring">
+            <div class="avatar">+</div>
+          </div>
+          <span class="story-name">إضافة قصة</span>
+        </button>
+
+        <button class="story" data-action="story" data-name="Marwan">
+          <div class="story-ring">
+            <div class="avatar">م</div>
+          </div>
+          <span class="story-name">مروان</span>
+        </button>
+
+        <button class="story" data-action="story" data-name="Salma">
+          <div class="story-ring">
+            <div class="avatar">س</div>
+          </div>
+          <span class="story-name">Salma</span>
+        </button>
+
+        <button class="story" data-action="story" data-name="Ahmed">
+          <div class="story-ring">
+            <div class="avatar">ع</div>
+          </div>
+          <span class="story-name">Ahmed</span>
+        </button>
+
+        <button class="story" data-action="story" data-name="Nour">
+          <div class="story-ring">
+            <div class="avatar">ن</div>
+          </div>
+          <span class="story-name">Nour</span>
+        </button>
+
+        <button class="story" data-action="story" data-name="القاهرة">
+          <div class="story-ring">
+            <div class="avatar">𓂀</div>
+          </div>
+          <span class="story-name">القاهرة</span>
+        </button>
+
+        <button class="story" data-action="story" data-name="السفر">
+          <div class="story-ring">
+            <div class="avatar">✈</div>
+          </div>
+          <span class="story-name">السفر</span>
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- FEED -->
+    <section class="section" id="feedSection">
+
+      <div class="section-heading feed-heading">
+
+        <h2 id="feedTitle">آخر المنشورات</h2>
+
+        <button class="sort-button" id="sortPosts">
+          الأحدث ⌄
+        </button>
+
+      </div>
+
+      <div id="postsList">
+
+        <!-- POST 1 -->
+        <article class="post" data-post-id="1">
+
           <header class="post-header">
-            <div class="avatar avatar-photo">أ</div>
-            <div class="post-author"><strong>Ahmed Mostafa <span class="verified">✓</span></strong><small>القاهرة، مصر · منذ 12 دقيقة · ◉</small></div>
-            <button class="more-btn" aria-label="المزيد">•••</button>
-          </header>
-          <p class="post-copy">غروب القاهرة له حكاية تانية 💙🇪🇬 مين نفسه يروح يتمشى على النيل النهارده؟</p>
-          <div class="post-art" role="img" aria-label="مشهد فني لغروب القاهرة والنيل">
-            <div class="sun"></div><div class="pyramid pyramid-one"></div><div class="pyramid pyramid-two"></div>
-            <div class="cityline"></div><div class="river"></div><div class="boat">⛵</div>
-            <span class="art-caption">CAIRO · EGYPT</span>
-          </div>
-          <div class="post-stats"><span>💙 ٢٫٤ ألف</span><span>٣٢٠ تعليق · ٨٥ مشاركة</span></div>
-          <div class="post-actions">
-            <button class="like-btn">♡ <span>إعجاب</span></button>
-            <button class="comment-btn">▱ <span>تعليق</span></button>
-            <button class="share-btn">↗ <span>مشاركة</span></button>
-            <button class="save-btn" aria-label="حفظ المنشور">♧</button>
-          </div>
-          <div class="comment-preview"><span class="mini-avatar">ن</span><span>نور: الصورة جميلة جدًا 😍</span></div>
-        </article>
-      </section>
-    </main>
 
-    <nav class="bottom-nav" aria-label="التنقل الرئيسي">
-      <button class="bottom-item selected" data-tab="الرئيسية"><span>⌂</span><small>الرئيسية</small></button>
-      <button class="bottom-item" data-tab="اكتشف"><span>✧</span><small>اكتشف</small></button>
-      <button class="create-fab" id="fab" aria-label="إنشاء">＋</button>
-      <button class="bottom-item" data-tab="الرسائل" id="bottomMessages"><span class="bottom-chat">▱</span><small>الرسائل</small><b class="bottom-badge">3</b></button>
-      <button class="bottom-item" data-tab="حسابي"><span>♙</span><small>حسابي</small></button>
-    </nav>
+            <button class="avatar" data-action="profile">
+              أ
+            </button>
+
+            <div class="post-author">
+
+              <div class="author-name">
+                <span>Ahmed Mostafa</span>
+                <span class="verified">✓</span>
+              </div>
+
+              <div class="post-meta">
+                القاهرة، مصر · منذ 12 دقيقة · 🌐
+              </div>
+
+            </div>
+
+            <button
+              class="more-button"
+              aria-label="المزيد"
+              data-action="post-menu"
+            >•••</button>
+
+          </header>
+
+          <div class="post-text">
+            غروب القاهرة له حكاية تانية 💙🇪🇬
+            مين نفسه يروح يتمشى على النيل النهارده؟
+          </div>
+
+          <div class="post-image-placeholder" role="img" aria-label="صورة تجريبية">
+            𓂀
+            <span>صورة المنشور</span>
+          </div>
+
+          <div class="post-stats">
+
+            <div class="reaction-summary">
+              <div class="reaction-icons">
+                <span>👍</span>
+                <span>❤️</span>
+                <span>😮</span>
+              </div>
+              <span class="like-count">2.4K</span>
+            </div>
+
+            <span>💬 <span class="comment-count">320</span></span>
+
+            <span>↗ 85</span>
+
+          </div>
+
+          <div class="post-actions">
+
+            <button class="post-action" data-action="like">
+              <span class="action-icon">♡</span>
+              <span>إعجاب</span>
+            </button>
+
+            <button class="post-action" data-action="comment">
+              <span class="action-icon">▢</span>
+              <span>تعليق</span>
+            </button>
+
+            <button class="post-action" data-action="share">
+              <span class="action-icon">↗</span>
+              <span>مشاركة</span>
+            </button>
+
+            <button class="post-action" data-action="save">
+              <span class="action-icon">♧</span>
+              <span>حفظ</span>
+            </button>
+
+          </div>
+
+        </article>
+
+
+        <!-- POST 2 -->
+        <article class="post" data-post-id="2">
+
+          <header class="post-header">
+
+            <button class="avatar" data-action="profile">
+              ن
+            </button>
+
+            <div class="post-author">
+
+              <div class="author-name">
+                <span>Nour Mohamed</span>
+              </div>
+
+              <div class="post-meta">
+                الجيزة، مصر · منذ ساعة · 🌐
+              </div>
+
+            </div>
+
+            <button
+              class="more-button"
+              aria-label="المزيد"
+              data-action="post-menu"
+            >•••</button>
+
+          </header>
+
+          <div class="post-text">
+            يوم جميل وبداية جديدة ✨
+            شاركوني أجمل لحظة في يومكم ❤️
+          </div>
+
+          <div class="post-image-placeholder" role="img" aria-label="صورة تجريبية">
+            ✨
+            <span>مساحة صورة المنشور</span>
+          </div>
+
+          <div class="post-stats">
+
+            <div class="reaction-summary">
+              <div class="reaction-icons">
+                <span>👍</span>
+                <span>❤️</span>
+              </div>
+              <span class="like-count">128</span>
+            </div>
+
+            <span>💬 <span class="comment-count">24</span></span>
+
+            <span>↗ 8</span>
+
+          </div>
+
+          <div class="post-actions">
+
+            <button class="post-action" data-action="like">
+              <span class="action-icon">♡</span>
+              <span>إعجاب</span>
+            </button>
+
+            <button class="post-action" data-action="comment">
+              <span class="action-icon">▢</span>
+              <span>تعليق</span>
+            </button>
+
+            <button class="post-action" data-action="share">
+              <span class="action-icon">↗</span>
+              <span>مشاركة</span>
+            </button>
+
+            <button class="post-action" data-action="save">
+              <span class="action-icon">♧</span>
+              <span>حفظ</span>
+            </button>
+
+          </div>
+
+        </article>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- BOTTOM NAVIGATION -->
+  <nav class="bottom-navigation" aria-label="التنقل السفلي">
+
+    <button class="bottom-item" data-page="profile">
+      <span class="nav-icon">♙</span>
+      <span>حسابي</span>
+    </button>
+
+    <button class="bottom-item" data-page="messages">
+      <span class="nav-icon">▱</span>
+      <span>الرسائل</span>
+      <span class="badge">3</span>
+    </button>
+
+    <button
+      class="bottom-item create-button"
+      data-action="create-post"
+      aria-label="إنشاء منشور"
+    >
+      <span class="nav-icon">＋</span>
+    </button>
+
+    <button class="bottom-item" data-page="discover">
+      <span class="nav-icon">◎</span>
+      <span>اكتشف</span>
+    </button>
+
+    <button class="bottom-item active" data-page="home">
+      <span class="nav-icon">⌂</span>
+      <span>الرئيسية</span>
+    </button>
+
+  </nav>
+
+
+  <!-- CREATE POST MODAL -->
+  <div class="modal" id="createPostModal" role="dialog" aria-modal="true" aria-labelledby="createPostTitle">
+
+    <div class="modal-box">
+
+      <div class="modal-header">
+        <h2 id="createPostTitle">إنشاء منشور جديد</h2>
+        <button class="close-modal" data-close-modal aria-label="إغلاق">×</button>
+      </div>
+
+      <textarea
+        class="modal-textarea"
+        id="postContent"
+        placeholder="بتفكر في إيه؟ شارك أصحابك..."
+      ></textarea>
+
+      <input
+        class="modal-input"
+        id="postImageUrl"
+        type="url"
+        placeholder="رابط الصورة (اختياري)"
+      >
+
+      <button class="primary-button" id="publishPost">
+        نشر المنشور
+      </button>
+
+      <p class="modal-hint">
+        المنشورات التي تنشئها هنا تجريبية ومحفوظة في متصفحك فقط،
+        وليست منشورات عامة على الإنترنت.
+      </p>
+
+    </div>
+
   </div>
 
-  <dialog id="composerDialog" class="composer-dialog">
-    <form method="dialog" class="dialog-card" id="postForm">
-      <div class="dialog-heading"><h2>منشور جديد</h2><button class="close-dialog" aria-label="إغلاق">×</button></div>
-      <textarea id="postText" placeholder="شارك لحظتك مع EgyBook..." rows="4"></textarea>
-      <div class="dialog-tools"><span>▧ صورة</span><span>▷ فيديو</span><span>⌖ موقع</span></div>
-      <button class="primary-btn" id="publishBtn" value="publish">نشر المنشور</button>
-    </form>
-  </dialog>
+
+  <!-- COMMENT MODAL -->
+  <div class="modal" id="commentModal" role="dialog" aria-modal="true" aria-labelledby="commentTitle">
+
+    <div class="modal-box">
+
+      <div class="modal-header">
+        <h2 id="commentTitle">إضافة تعليق</h2>
+        <button class="close-modal" data-close-modal aria-label="إغلاق">×</button>
+      </div>
+
+      <textarea
+        class="modal-textarea"
+        id="commentContent"
+        placeholder="اكتب تعليقك..."
+      ></textarea>
+
+      <button class="primary-button" id="publishComment">
+        إضافة التعليق
+      </button>
+
+      <p class="modal-hint">
+        التعليقات هنا تجريبية، ولن يراها المستخدمون الآخرون.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- SEARCH MODAL -->
+  <div class="modal" id="searchModal" role="dialog" aria-modal="true" aria-labelledby="searchTitle">
+
+    <div class="modal-box">
+
+      <div class="modal-header">
+        <h2 id="searchTitle">البحث في EgyBook</h2>
+        <button class="close-modal" data-close-modal aria-label="إغلاق">×</button>
+      </div>
+
+      <input
+        class="modal-input"
+        id="searchInput"
+        type="search"
+        placeholder="ابحث عن منشور..."
+      >
+
+      <button class="primary-button" id="performSearch">
+        بحث
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- TOAST -->
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script src="script.js"></script>
+
+
+  <script>
+    /* ======================================
+       EgyBook — Homepage Interactions
+    ====================================== */
+
+    const toast = document.getElementById("toast");
+
+    let toastTimer;
+    let activeCommentPost = null;
+    let sortNewestFirst = true;
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+
+      clearTimeout(toastTimer);
+
+      toastTimer = setTimeout(() => {
+        toast.classList.remove("show");
+      }, 2600);
+    }
+
+    function openModal(id) {
+      const modal = document.getElementById(id);
+
+      if (!modal) return;
+
+      modal.classList.add("open");
+
+      const input = modal.querySelector(
+        "textarea, input:not([type='hidden'])"
+      );
+
+      if (input) {
+        setTimeout(() => input.focus(), 100);
+      }
+    }
+
+    function closeModal(modal) {
+      if (modal) {
+        modal.classList.remove("open");
+      }
+    }
+
+    document.querySelectorAll("[data-close-modal]").forEach(button => {
+      button.addEventListener("click", () => {
+        closeModal(button.closest(".modal"));
+      });
+    });
+
+    document.querySelectorAll(".modal").forEach(modal => {
+      modal.addEventListener("click", event => {
+        if (event.target === modal) {
+          closeModal(modal);
+        }
+      });
+    });
+
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape") {
+        document.querySelectorAll(".modal.open").forEach(closeModal);
+      }
+    });
+
+
+    /* CREATE POST */
+
+    function createPost() {
+      openModal("createPostModal");
+    }
+
+    document.getElementById("publishPost").addEventListener("click", () => {
+      const content = document
+        .getElementById("postContent")
+        .value.trim();
+
+      const imageUrl = document
+        .getElementById("postImageUrl")
+        .value.trim();
+
+      if (!content) {
+        showToast("اكتب محتوى المنشور الأول");
+        return;
+      }
+
+      if (imageUrl) {
+        try {
+          const parsedUrl = new URL(imageUrl);
+
+          if (!["http:", "https:"].includes(parsedUrl.protocol)) {
+            showToast("رابط الصورة غير صالح");
+            return;
+          }
+        } catch {
+          showToast("اكتب رابط صورة صحيح");
+          return;
+        }
+      }
+
+      const post = document.createElement("article");
+      post.className = "post";
+      post.dataset.postId = "local-" + Date.now();
+
+      const header = document.createElement("header");
+      header.className = "post-header";
+
+      const avatar = document.createElement("div");
+      avatar.className = "avatar";
+      avatar.textContent = "ح";
+
+      const author = document.createElement("div");
+      author.className = "post-author";
+
+      const authorName = document.createElement("div");
+      authorName.className = "author-name";
+      authorName.textContent = "حسابي";
+
+      const meta = document.createElement("div");
+      meta.className = "post-meta";
+      meta.textContent = "الآن · منشور تجريبي";
+
+      author.append(authorName, meta);
+
+      header.append(avatar, author);
+
+      const text = document.createElement("div");
+      text.className = "post-text";
+      text.textContent = content;
+
+      post.append(header, text);
+
+      if (imageUrl) {
+        const image = document.createElement("img");
+
+        image.className = "post-image";
+        image.alt = "صورة المنشور";
+        image.loading = "lazy";
+        image.referrerPolicy = "no-referrer";
+        image.src = imageUrl;
+
+        image.addEventListener("error", () => {
+          image.replaceWith(
+            createImagePlaceholder("تعذر تحميل الصورة")
+          );
+        }, { once: true });
+
+        post.append(image);
+      }
+
+      const stats = document.createElement("div");
+      stats.className = "post-stats";
+      stats.innerHTML = `
+        <div class="reaction-summary">
+          <div class="reaction-icons"><span>👍</span></div>
+          <span class="like-count">0</span>
+        </div>
+        <span>💬 <span class="comment-count">0</span></span>
+        <span>↗ 0</span>
+      `;
+
+      const actions = document.createElement("div");
+      actions.className = "post-actions";
+
+      actions.innerHTML = `
+        <button class="post-action" data-action="like">
+          <span class="action-icon">♡</span><span>إعجاب</span>
+        </button>
+        <button class="post-action" data-action="comment">
+          <span class="action-icon">▢</span><span>تعليق</span>
+        </button>
+        <button class="post-action" data-action="share">
+          <span class="action-icon">↗</span><span>مشاركة</span>
+        </button>
+        <button class="post-action" data-action="save">
+          <span class="action-icon">♧</span><span>حفظ</span>
+        </button>
+      `;
+
+      post.append(stats, actions);
+
+      document.getElementById("postsList").prepend(post);
+
+      document.getElementById("postContent").value = "";
+      document.getElementById("postImageUrl").value = "";
+
+      closeModal(document.getElementById("createPostModal"));
+
+      showToast("تمت إضافة المنشور في هذه الصفحة");
+
+      post.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    });
+
+
+    function createImagePlaceholder(message) {
+      const placeholder = document.createElement("div");
+      placeholder.className = "post-image-placeholder";
+
+      const icon = document.createElement("span");
+      icon.textContent = "▧";
+
+      const text = document.createElement("span");
+      text.textContent = message;
+
+      placeholder.append(icon, text);
+
+      return placeholder;
+    }
+
+
+    /* LIKE / COMMENT / SAVE / SHARE */
+
+    document.addEventListener("click", async event => {
+      const button = event.target.closest("[data-action]");
+
+      if (!button) return;
+
+      const action = button.dataset.action;
+
+      const post = button.closest(".post");
+
+      if (action === "create-post") {
+        createPost();
+        return;
+      }
+
+      if (action === "like" && post) {
+        const count = post.querySelector(".like-count");
+        const icon = button.querySelector(".action-icon");
+
+        const liked = button.classList.toggle("liked");
+
+        icon.textContent = liked ? "♥" : "♡";
+
+        button.querySelector("span:last-child").textContent =
+          liked ? "أعجبني" : "إعجاب";
+
+        const currentCount = Number(
+          count.textContent.replace(/[^\d]/g, "")
+        ) || 0;
+
+        count.textContent = Math.max(
+          0,
+          currentCount + (liked ? 1 : -1)
+        ).toLocaleString("en-US");
+
+        return;
+      }
+
+      if (action === "comment" && post) {
+        activeCommentPost = post;
+        openModal("commentModal");
+        return;
+      }
+
+      if (action === "save" && post) {
+        const saved = button.classList.toggle("saved");
+
+        button.querySelector(".action-icon").textContent =
+          saved ? "★" : "♧";
+
+        button.querySelector("span:last-child").textContent =
+          saved ? "تم الحفظ" : "حفظ";
+
+        showToast(
+          saved
+            ? "تم حفظ المنشور في هذه الجلسة"
+            : "تم إلغاء حفظ المنشور"
+        );
+
+        return;
+      }
+
+      if (action === "share" && post) {
+        const text = post.querySelector(".post-text")?.textContent || "";
+        const shareData = {
+          title: "EgyBook",
+          text: text,
+          url: window.location.href
+        };
+
+        try {
+          if (navigator.share) {
+            await navigator.share(shareData);
+          } else if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(
+              text + "\n" + window.location.href
+            );
+
+            showToast("تم نسخ نص المنشور والرابط");
+          } else {
+            showToast("يمكنك نسخ رابط الصفحة من المتصفح");
+          }
+        } catch (error) {
+          if (error.name !== "AbortError") {
+            showToast("تعذرت المشاركة");
+          }
+        }
+
+        return;
+      }
+
+      if (action === "search") {
+        openModal("searchModal");
+        return;
+      }
+
+      if (action === "photo" || action === "video") {
+        showToast("رفع الملفات يحتاج إلى ربط خدمة تخزين");
+        return;
+      }
+
+      if (action === "location") {
+        showToast("إضافة الموقع تحتاج إلى تفعيل خدمة الموقع");
+        return;
+      }
+
+      if (action === "music") {
+        showToast("ميزة الموسيقى ستحتاج إلى مشغل ومصدر صوت");
+        return;
+      }
+
+      if (action === "messages") {
+        showToast("صفحة الرسائل تحتاج إلى ربط نظام المحادثات");
+        return;
+      }
+
+      if (action === "notifications") {
+        showToast("صفحة الإشعارات تحتاج إلى ربط نظام الإشعارات");
+        return;
+      }
+
+      if (action === "profile") {
+        showToast("صفحة الحساب تحتاج إلى نظام حسابات المستخدمين");
+        return;
+      }
+
+      if (action === "add-story") {
+        showToast("إضافة القصص تحتاج إلى خدمة رفع الصور والفيديو");
+        return;
+      }
+
+      if (action === "all-stories") {
+        showToast("دي واجهة القصص التجريبية");
+        return;
+      }
+
+      if (action === "story") {
+        showToast("قصة " + (button.dataset.name || "") + " تجريبية");
+        return;
+      }
+
+      if (action === "post-menu") {
+        showToast("قائمة المنشور التجريبية");
+      }
+    });
+
+
+    /* PUBLISH COMMENT */
+
+    document.getElementById("publishComment").addEventListener("click", () => {
+      const content = document
+        .getElementById("commentContent")
+        .value.trim();
+
+      if (!content) {
+        showToast("اكتب التعليق الأول");
+        return;
+      }
+
+      if (!activeCommentPost) {
+        closeModal(document.getElementById("commentModal"));
+        return;
+      }
+
+      const count = activeCommentPost.querySelector(".comment-count");
+
+      if (count) {
+        const current = Number(
+          count.textContent.replace(/[^\d]/g, "")
+        ) || 0;
+
+        count.textContent = (current + 1).toLocaleString("en-US");
+      }
+
+      const comments = document.createElement("div");
+      comments.className = "post-text";
+      comments.style.borderTop = "1px solid rgba(47,126,255,.2)";
+      comments.textContent = "حسابي: " + content;
+
+      activeCommentPost.append(comments);
+
+      document.getElementById("commentContent").value = "";
+
+      closeModal(document.getElementById("commentModal"));
+
+      showToast("تمت إضافة التعليق محليًا");
+
+      activeCommentPost = null;
+    });
+
+
+    /* SEARCH */
+
+    document.getElementById("performSearch").addEventListener("click", () => {
+      const query = document
+        .getElementById("searchInput")
+        .value.trim()
+        .toLowerCase();
+
+      if (!query) {
+        showToast("اكتب كلمة للبحث");
+        return;
+      }
+
+      const posts = [
+        ...document.querySelectorAll("#postsList .post")
+      ];
+
+      let found = 0;
+
+      posts.forEach(post => {
+        const text = post.textContent.toLowerCase();
+
+        const matches = text.includes(query);
+
+        post.style.display = matches ? "" : "none";
+
+        if (matches) found++;
+      });
+
+      closeModal(document.getElementById("searchModal"));
+
+      document.getElementById("feedTitle").textContent =
+        "نتائج البحث";
+
+      showToast(
+        found
+          ? "تم العثور على " + found + " منشور"
+          : "لا توجد نتائج مطابقة"
+      );
+
+      document.getElementById("feedSection").scrollIntoView({
+        behavior: "smooth"
+      });
+    });
+
+
+    /* RESET FEED */
+
+    document.getElementById("sortPosts").addEventListener("click", () => {
+      sortNewestFirst = !sortNewestFirst;
+
+      const postsList = document.getElementById("postsList");
+
+      const posts = [...postsList.children];
+
+      if (sortNewestFirst) {
+        posts.reverse().forEach(post => postsList.append(post));
+      } else {
+        posts.reverse().forEach(post => postsList.append(post));
+      }
+
+      document.getElementById("sortPosts").textContent =
+        sortNewestFirst ? "الأحدث ⌄" : "الأقدم ⌄";
+
+      showToast("تم تغيير ترتيب المنشورات التجريبية");
+    });
+
+
+    /* NAVIGATION */
+
+    function setActivePage(page) {
+      document.querySelectorAll("[data-page]").forEach(button => {
+        button.classList.toggle(
+          "active",
+          button.dataset.page === page
+        );
+      });
+
+      const labels = {
+        home: "الرئيسية",
+        friends: "الأصدقاء",
+        discover: "اكتشف",
+        reels: "الريلز",
+        saved: "المحفوظة",
+        messages: "الرسائل",
+        profile: "حسابي"
+      };
+
+      if (page === "home") {
+        document.getElementById("feedTitle").textContent =
+          "آخر المنشورات";
+
+        document.querySelectorAll("#postsList .post").forEach(post => {
+          post.style.display = "";
+        });
+
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
+
+        return;
+      }
+
+      if (page === "discover") {
+        showToast("قسم اكتشف يحتاج إلى صفحة مستقلة");
+      } else if (page === "friends") {
+        showToast("قسم الأصدقاء يحتاج إلى نظام المستخدمين");
+      } else if (page === "reels") {
+        showToast("قسم الريلز يحتاج إلى مشغل فيديو");
+      } else if (page === "saved") {
+        showToast("المحفوظات تحتاج إلى نظام تخزين دائم");
+      } else if (page === "messages") {
+        showToast("الرسائل تحتاج إلى ربط نظام المحادثات");
+      } else if (page === "profile") {
+        showToast("حسابي يحتاج إلى نظام تسجيل المستخدمين");
+      }
+
+      if (labels[page]) {
+        console.log("EgyBook section:", labels[page]);
+      }
+    }
+
+    document.querySelectorAll("[data-page]").forEach(button => {
+      button.addEventListener("click", () => {
+        setActivePage(button.dataset.page);
+      });
+    });
+
+
+    /* LOAD LOCAL POSTS */
+
+    try {
+      const savedDraft = localStorage.getItem("egybook_post_draft");
+
+      if (savedDraft) {
+        document.getElementById("quickPostInput").value = savedDraft;
+      }
+    } catch (error) {
+      // Local storage may be unavailable.
+    }
+
+    window.addEventListener("beforeunload", () => {
+      try {
+        const content = document.getElementById("postContent").value;
+
+        if (content) {
+          localStorage.setItem("egybook_post_draft", content);
+        }
+      } catch (error) {
+        // Ignore storage errors.
+      }
+    });
+
+  </script>
+
 </body>
 </html>
